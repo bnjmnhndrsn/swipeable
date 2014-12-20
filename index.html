@@ -2,6 +2,7 @@
 <head>
 	<title>Swipable Example</title>
 	<script src="jquery-1.11.2.min.js"></script>
+	<script src="jquery-ui.min.js"></script>
 	<script src="swipable.js"></script>
 	<style>
 	#target {
@@ -17,12 +18,19 @@
 	}
 	
 	.swipable-container {
-		overflow: hidden;
 		position: relative;
 	}
 	
 	.swipable-element {
 		position: absolute;
+	}
+	
+	.swipable-element.left::after {
+		content: "left";
+	}
+	
+	.swipable-element.right::after {
+		content: "right";
 	}
 	
 	</style>
