@@ -1,1 +1,1 @@
-A plugin to allow selections items based on swiping left or right.
+A plugin to duplicate swipe functionality (a la Tinder) in the browser.
