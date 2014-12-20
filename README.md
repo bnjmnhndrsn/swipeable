@@ -1,0 +1,1 @@
+A plugin to allow selections items based on swiping left or right.
