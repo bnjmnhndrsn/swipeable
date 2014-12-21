@@ -65,7 +65,7 @@
 		}
 	}
 	
-	swipable( $target );
+	$target.swipable();
 	$target.on("swipeleft", function(event){
 		console.log("swipeleft");
 	});
@@ -74,7 +74,7 @@
 	});
 	$target.on("swipeall", function(event){
 		addBoxes(5);
-		swipable( $target );
+		$target.swipable();
 	});
 	
 	</script>
