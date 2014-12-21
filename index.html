@@ -59,15 +59,23 @@
 	</div>
 	<script>
 	var $target = $("#target");
+	function addBoxes(n){
+		for (var i = 0; i < n; i++){
+			$target.append( $("<div>").addClass("box") );
+		}
+	}
+	
 	swipable( $target );
 	$target.on("swipeleft", function(event){
-		$(event.target).remove();
 		console.log("swipeleft");
 	});
 	$target.on("swiperight", function(event){
-		$(event.target).remove();
 		console.log("swiperight");
-	})
+	});
+	$target.on("swipeall", function(event){
+		addBoxes(5);
+		swipable( $target );
+	});
 	
 	</script>
 </body>

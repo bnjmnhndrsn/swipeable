@@ -2,7 +2,7 @@ var swipable = function($target, captions, options){
 	
 	captions = captions ? captions : { right: {}, left: {} };
 	
-	var 
+	var
 		captionCSS = $.extend({
 			top: "50px",
 			left: "20px",
@@ -22,8 +22,35 @@ var swipable = function($target, captions, options){
 		defaults = $.extend({
 			threshold: 50,
 			transformOrigin: "top left",
-			rotation: .1
+			rotation: .1,
+			onSwipe: function(){
+				var $elem = $(this),
+					left = _getLeft($elem),
+					width = $elem.width();
+					
+				$elem.addClass("swipable-transitioning");
+				
+				$elem.one('transitionend', function(){
+					$elem.remove();
+					if ($target.children().length === 0){
+						defaults.onSwipeAll.call($target);
+					}
+				});
+		
+				setTimeout(function(){
+					$elem.css({
+						left: left > 0 ? width + "px" : "-" + width + "px",
+					});
+					
+				}, 1);
+			},
+			onSwipeAll: function(){
+				this.removeClass("swipable-container");
+				this.trigger("swipeall");
+			}
 		}, options),
+		//STATE VARIABLES
+		_numChildren,
 		//HELPER FUNCTIONS
 		_getLeft,
 		_changeCSS,
@@ -62,8 +89,10 @@ var swipable = function($target, captions, options){
 			
 		if (left < -defaults.threshold) {
 			$elem.trigger("swipeleft");
+			defaults.onSwipe.call(this);
 		} else if (left > defaults.threshold) {
 			$elem.trigger("swiperight");
+			defaults.onSwipe.call(this);
 		} else {
 			$elem.addClass("swipable-transitioning");
 			$elem.removeClass("left right");
@@ -88,7 +117,11 @@ var swipable = function($target, captions, options){
 	
 	
 	$target.addClass("swipable-container");
-	$target.children().addClass("swipable-element").draggable()
+	
+	$target
+	.children()
+	.addClass("swipable-element")
+	.draggable()
 	.append( _makeCaption("left", captionLeftCSS, captionLeftText) )
 	.append( _makeCaption("right", captionRightCSS, captionRightText) )
 	.on("drag", _changeCSS)
