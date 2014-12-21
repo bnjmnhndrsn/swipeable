@@ -1,9 +1,9 @@
 <html>
 <head>
-	<title>Swipable Example</title>
+	<title>Swipeable Example</title>
 	<script src="jquery-1.11.2.min.js"></script>
 	<script src="jquery-ui.min.js"></script>
-	<script src="swipable.js"></script>
+	<script src="swipeable.js"></script>
 	<style>
 	#target {
 		margin: 0 auto;
@@ -18,31 +18,31 @@
 		border: 1px solid black;
 	}
 	
-	.swipable-container {
+	.swipeable-container {
 		position: relative;
 	}
 	
-	.swipable-element {
+	.swipeable-element {
 		position: absolute;
 	}
 	
-	.swipable-transitioning {
+	.swipeable-transitioning {
 		transition: top .25s, left .25s, transform .25s;
 	}
 	
-	.swipable-caption {
+	.swipeable-caption {
 		position: absolute;
 	}
 	
-	.swipable-element .swipable-caption {
+	.swipeable-element .swipeable-caption {
 		display: none;
 	}
 	
-	.swipable-element.left .swipable-caption.left {
+	.swipeable-element.left .swipeable-caption.left {
 		display: block;
 	}
 	
-	.swipable-element.right .swipable-caption.right {
+	.swipeable-element.right .swipeable-caption.right {
 		display: block;
 	}
 	
@@ -65,7 +65,7 @@
 		}
 	}
 	
-	$target.swipable();
+	$target.swipeable();
 	$target.on("swipeleft", function(event){
 		console.log("swipeleft");
 	});
@@ -74,7 +74,8 @@
 	});
 	$target.on("swipeall", function(event){
 		addBoxes(5);
-		$target.swipable();
+		$target.swipeable
+();
 	});
 	
 	</script>

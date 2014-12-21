@@ -30,7 +30,7 @@
 			}
 	
 			if (Math.abs(left) <= options.threshold) {
-				$(this).find(".swipable-caption").css("opacity", Math.abs(left/options.threshold) );
+				$(this).find(".swipeable-caption").css("opacity", Math.abs(left/options.threshold) );
 			}
 	
 			$(this).css({
@@ -53,10 +53,10 @@
 				$elem.trigger("swiperight");
 				options.onSwipe.call(this);
 			} else {
-				$elem.addClass("swipable-transitioning");
+				$elem.addClass("swipeable-transitioning");
 				$elem.removeClass("left right");
 				$elem.one('transitionend', function(){
-					$elem.removeClass("swipable-transitioning");
+					$elem.removeClass("swipeable-transitioning");
 				});
 		
 				setTimeout(function(){
@@ -67,7 +67,7 @@
 	};
 
 	_makeCaption = function(classes, css, text){
-		return $("<div>").addClass("swipable-caption " + classes).css(css).text(text);
+		return $("<div>").addClass("swipeable-caption " + classes).css(css).text(text);
 	};
 	
 	_onSwipe = function(){
@@ -76,13 +76,13 @@
 			left = _getLeft($elem),
 			width = $elem.width();
 			
-			$elem.addClass("swipable-transitioning");
+			$elem.addClass("swipeable-transitioning");
 
 			$elem.one('transitionend', function(){
 			$elem.remove();
 			
 			if ($parent.children().length === 0){
-				$parent.removeClass("swipable-container");
+				$parent.removeClass("swipeable-container");
 				$parent.trigger("swipeall");
 			}
 		});
@@ -121,7 +121,7 @@
 	
 	//MAIN FUNCTION
 	
-	$.fn.swipable = function(captions, swipeOptions){
+	$.fn.swipeable = function(captions, swipeOptions){
 		
 		captions = captions ? captions : { right: {}, left: {} };
 	
@@ -134,10 +134,10 @@
 			options = $.extend(swipeDefaults, swipeOptions)
 		;
 	
-		this.addClass("swipable-container");
+		this.addClass("swipeable-container");
 	
 		this.children()
-		.addClass("swipable-element")
+		.addClass("swipeable-element")
 		.draggable()
 		.append( _makeCaption("left", captionLeftCSS, captionLeftText) )
 		.append( _makeCaption("right", captionRightCSS, captionRightText) )
