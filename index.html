@@ -1,58 +1,59 @@
 <html>
 <head>
 	<title>Swipeable Example</title>
-	<script src="jquery-1.11.2.min.js"></script>
-	<script src="jquery-ui.min.js"></script>
-	<script src="swipeable.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/swipeable.css">
+	<script src="vendor/jquery-1.11.2.min.js"></script>
+	<script src="vendor/jquery-ui.min.js"></script>
+	<script src="lib/swipeable.js"></script>
 	<style>
 	#target {
 		margin: 0 auto;
 		height: 152px;
 		width: 152px;
 		background-color: gray
+		
 	}
 	
 	.card {
 		width: 150px;
 		height: 150px;
 		border: 1px solid black;
+		
 	}
 	
 	.card img {
 		width: 100%;
 	}
 	
-	.swipeable-container {
-		position: relative;
+	
+	#yes, #no {
+		padding: 15px;
+		height: 150px;
+		display: flex;
+		flex-direction: row;
+		overflow-x: scroll;
 	}
 	
-	.swipeable-element {
-		position: absolute;
+	#yes img, #no img {
+		display: inline-block;
+		flex: 0 0 150px;
 	}
 	
-	.swipeable-transitioning {
-		transition: top .25s, left .25s, transform .25s;
-	}
-	
-	.swipeable-caption {
-		position: absolute;
-	}
-	
-	.swipeable-element .swipeable-caption {
-		display: none;
-	}
-	
-	.swipeable-element.left .swipeable-caption.left, .swipeable-element.right .swipeable-caption.right {
-		display: block;
-	}
 	</style>
 </head>
 
 <body>
 	<div id="target">
 	</div>
+	<div>
+		<h2>YES</h2>
+		<div id="yes">
+		</div>
+		<h2>NO</h2>
+		<div id="no">
+		</div>
+	</div>
 	<script>
-
 	
 	var $target = $("#target");
 	
@@ -60,8 +61,9 @@
 	function appendCards(data) {
 	
 		data.results.forEach(function(result){
-			var $div = $("<div class='card'>");
-			var $img = $("<img>").attr("src", result.user.picture.medium );
+			var pic = result.user.picture.medium;
+			var $div = $("<div class='card'>").data("url", pic);
+			var $img = $("<img>").attr("src", pic );
 			$target.append( $div.append( $img ) );
 		});
 	}
@@ -83,15 +85,16 @@
 		$target.swipeable({
 			left: {
 				css: {
-					color: "#0AF22D",
-					border: "2px solid #0AF22D",
+					color: "#FF4545",
+					border: "2px solid #FF4545",
 					fontSize: "150%"
+				
 				}
 			},
 			right: {
 				css: {
-					color: "#FF4545",
-					border: "2px solid #FF4545",
+					color: "#0AF22D",
+					border: "2px solid #0AF22D",
 					fontSize: "150%"
 				}
 			}
@@ -102,11 +105,13 @@
 	
 	
 	
-	$target.on("swipeleft", function(event){
-		console.log("swipeleft");
+	$target.on("swipeleft", ".card", function(event){
+		var url = $(this).data("url");
+		$("#no").append( $("<img>").attr("src", url) );
 	});
-	$target.on("swiperight", function(event){
-		console.log("swiperight");
+	$target.on("swiperight", ".card", function(event){
+		var url = $(this).data("url");
+		$("#yes").append( $("<img>").attr("src", url) );
 	});
 	$target.on("swipeall", function(event){
 		addCards(5, callback);
