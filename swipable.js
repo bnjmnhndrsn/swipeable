@@ -1,22 +1,42 @@
 var swipable = function($target, captions, options){
 	
-	var captionCSS = $.extend({
-		top: "50px",
-		left: "20px"
-	}, captions.css);
+	captions = captions ? captions : { right: {}, left: {} };
 	
-	var defaults = $.extend({
-		threshold: 50,
-		transformOrigin: "top left",
-		rotation: .1
-	}, options);
+	var 
+		captionCSS = $.extend({
+			top: "50px",
+			left: "20px",
+		}, captions.css),
 	
-	var _getLeft = function(){
-		return parseInt( $(this).css("left").replace("px", "") );
+		captionLeftCSS = $.extend({
+			color: "red"
+		}, captionCSS, captions.left.css),
+	
+		captionRightCSS = $.extend({
+			color: "green"
+		}, captionCSS, captions.right.css),
+	
+		captionLeftText = captions.left.text ? captions.left.text : "no",
+		captionRightText = captions.right.text ? captions.right.text: "yes",
+		
+		defaults = $.extend({
+			threshold: 50,
+			transformOrigin: "top left",
+			rotation: .1
+		}, options),
+		//HELPER FUNCTIONS
+		_getLeft,
+		_changeCSS,
+		_makeCaption,
+		_dragStop
+	;
+	
+	_getLeft = function(elem){
+		return parseInt( $(elem).css("left").replace("px", "") );
 	}
 	
-	var _changeCSS = function(){
-		var left = _getLeft();
+	_changeCSS = function(){
+		var left = _getLeft(this);
 		
 		$(this).removeClass("left right");
 		
@@ -36,27 +56,14 @@ var swipable = function($target, captions, options){
 		});
 	};
 	
-	$target.addClass("swipable-container");
-	$target.children().addClass("swipable-element").draggable()
-	.append(
-		$("<div>")
-		.addClass("swipable-caption left")
-		.css(captionCSS)
-		.text(captions.left.text)
-		.css("color", "green")
-	).append(
-		$("<div>")
-		.addClass("swipable-caption right")
-		.css(captionCSS).text(captions.right.text)
-		.css("color", "red")
-	).on("drag", _changeCSS)
-	.on("dragstop", function(){
-		var $elem = $(this);
-		var left = _getLeft();
+	_dragStop = function(){
+		var $elem = $(this), 
+			left = _getLeft(this);
+			
 		if (left < -defaults.threshold) {
-			$elem.trigger("swipeLeft");
+			$elem.trigger("swipeleft");
 		} else if (left > defaults.threshold) {
-			$elem.trigger("swipeRight");
+			$elem.trigger("swiperight");
 		} else {
 			$elem.addClass("swipable-transitioning");
 			$elem.removeClass("left right");
@@ -73,6 +80,18 @@ var swipable = function($target, captions, options){
 					
 			}, 1);
 		}
-	});
+	};
+	
+	_makeCaption = function(classes, css, text){
+		return $("<div>").addClass("swipable-caption " + classes).css(css).text(text);
+	};
+	
+	
+	$target.addClass("swipable-container");
+	$target.children().addClass("swipable-element").draggable()
+	.append( _makeCaption("left", captionLeftCSS, captionLeftText) )
+	.append( _makeCaption("right", captionRightCSS, captionRightText) )
+	.on("drag", _changeCSS)
+	.on("dragstop", _dragStop);
 	
 }

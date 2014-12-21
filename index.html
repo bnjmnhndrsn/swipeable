@@ -58,15 +58,17 @@
 		<div class="box"></div>
 	</div>
 	<script>
-		swipable($("#target"), {
-			css: {},
-			left: {
-				text: "left"
-			},
-			right: {
-				text: "right"
-			}
-		});
+	var $target = $("#target");
+	swipable( $target );
+	$target.on("swipeleft", function(event){
+		$(event.target).remove();
+		console.log("swipeleft");
+	});
+	$target.on("swiperight", function(event){
+		$(event.target).remove();
+		console.log("swiperight");
+	})
+	
 	</script>
 </body>
 </html>
