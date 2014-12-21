@@ -7,15 +7,19 @@
 	<style>
 	#target {
 		margin: 0 auto;
-		height: 402px;
-		width: 202px;
+		height: 152px;
+		width: 152px;
+		background-color: gray
 	}
 	
-	.box {
-		width: 200px;
-		height: 400px;
-		background-color: gray;
+	.card {
+		width: 150px;
+		height: 150px;
 		border: 1px solid black;
+	}
+	
+	.card img {
+		width: 100%;
 	}
 	
 	.swipeable-container {
@@ -38,34 +42,66 @@
 		display: none;
 	}
 	
-	.swipeable-element.left .swipeable-caption.left {
+	.swipeable-element.left .swipeable-caption.left, .swipeable-element.right .swipeable-caption.right {
 		display: block;
 	}
-	
-	.swipeable-element.right .swipeable-caption.right {
-		display: block;
-	}
-	
 	</style>
 </head>
 
 <body>
 	<div id="target">
-		<div class="box"></div>
-		<div class="box"></div>
-		<div class="box"></div>
-		<div class="box"></div>
-		<div class="box"></div>
 	</div>
 	<script>
+
+	
 	var $target = $("#target");
-	function addBoxes(n){
-		for (var i = 0; i < n; i++){
-			$target.append( $("<div>").addClass("box") );
-		}
+	
+	
+	function appendCards(data) {
+	
+		data.results.forEach(function(result){
+			var $div = $("<div class='card'>");
+			var $img = $("<img>").attr("src", result.user.picture.medium );
+			$target.append( $div.append( $img ) );
+		});
 	}
 	
-	$target.swipeable();
+	function addCards(n, callback){
+		$.ajax({
+			data: {
+				results: 10
+			},
+			url: 'http://api.randomuser.me/',
+			dataType: 'json',
+			success: callback
+		});
+	
+	}
+	
+	function callback(data){
+		appendCards(data);
+		$target.swipeable({
+			left: {
+				css: {
+					color: "#0AF22D",
+					border: "2px solid #0AF22D",
+					fontSize: "150%"
+				}
+			},
+			right: {
+				css: {
+					color: "#FF4545",
+					border: "2px solid #FF4545",
+					fontSize: "150%"
+				}
+			}
+		});
+	}
+	
+	addCards(5, callback);
+	
+	
+	
 	$target.on("swipeleft", function(event){
 		console.log("swipeleft");
 	});
@@ -73,9 +109,7 @@
 		console.log("swiperight");
 	});
 	$target.on("swipeall", function(event){
-		addBoxes(5);
-		$target.swipeable
-();
+		addCards(5, callback);
 	});
 	
 	</script>
