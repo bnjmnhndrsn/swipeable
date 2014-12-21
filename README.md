@@ -1,1 +1,1 @@
-A plugin to duplicate swipe functionality (a la Tinder) in the browser.
+A jQuery plugin to duplicate swipe selection functionality (a la Tinder) in the browser. [Example here](http://rawgit.com/bnjmnhndrsn/swipable/master/index.html).
