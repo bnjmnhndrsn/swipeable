@@ -1,0 +1,126 @@
+<html>
+<head>
+	<title>Swipeable Finite Example</title>
+	<link rel="stylesheet" type="text/css" href="../lib/swipeable.css">
+	<script src="../vendor/jquery-1.11.2.min.js"></script>
+	<script src="../vendor/jquery-ui.min.js"></script>
+	<script src="../vendor/jquery.ui.touch-punch.js"></script>
+	<script src="../lib/swipeable.js"></script>
+	<style>
+	#target {
+		margin: 0 auto;
+		height: 152px;
+		width: 152px;
+		background-color: white;
+		background: url('ajax-loader.gif') center center no-repeat;
+		
+	}
+	
+	.card {
+		width: 150px;
+		height: 150px;
+		border: 1px solid black;
+		
+	}
+	
+	.card img {
+		width: 100%;
+	}
+	
+	
+	#yes, #no {
+		padding: 15px;
+		height: 150px;
+		display: flex;
+		flex-direction: row;
+		overflow-x: scroll;
+	}
+	
+	#yes img, #no img {
+		display: inline-block;
+		flex: 0 0 150px;
+	}
+	
+	</style>
+</head>
+
+<body>
+	<div id="target">
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/men/5.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/women/5.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/men/7.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/women/15.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/men/14.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/women/21.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/men/2.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/men/3.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/women/22.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/men/35.jpg">
+		</div>
+		<div class="card">
+			<img src="http://api.randomuser.me/portraits/med/men/50.jpg">
+		</div>
+	</div>
+	<div>
+		<h2>YES</h2>
+		<div id="yes">
+		</div>
+		<h2>NO</h2>
+		<div id="no">
+		</div>
+	</div>
+	<script>
+	
+	var $target = $("#target");
+	
+	$target.swipeable({
+		left: {
+			css: {
+				color: "#FF4545",
+				border: "2px solid #FF4545",
+				fontSize: "150%"
+			
+			}
+		},
+		right: {
+			css: {
+				color: "#0AF22D",
+				border: "2px solid #0AF22D",
+				fontSize: "150%"
+			}
+		}
+	});
+	
+	
+	
+	$target.on("swipeleft", ".card", function(event){
+		//var url = $(this).data("url");
+		//$("#no").append( $("<img>").attr("src", url) );
+	});
+	$target.on("swiperight", ".card", function(event){
+		//var url = $(this).data("url");
+		//$("#yes").append( $("<img>").attr("src", url) );
+	});
+
+	</script>
+</body>
+</html>
