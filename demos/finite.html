@@ -51,37 +51,37 @@
 <body>
 	<h1>Swipe me!</h1>
 	<div id="target">
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/men/5.jpg">
 			<img src="http://api.randomuser.me/portraits/med/men/5.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/women/5.jpg">
 			<img src="http://api.randomuser.me/portraits/med/women/5.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/men/7.jpg">
 			<img src="http://api.randomuser.me/portraits/med/men/7.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/women/15.jpg">
 			<img src="http://api.randomuser.me/portraits/med/women/15.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/men/14.jpg">
 			<img src="http://api.randomuser.me/portraits/med/men/14.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/women/21.jpg">
 			<img src="http://api.randomuser.me/portraits/med/women/21.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/men/2.jpg">
 			<img src="http://api.randomuser.me/portraits/med/men/2.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/men/3.jpg">
 			<img src="http://api.randomuser.me/portraits/med/men/3.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/women/22.jpg">
 			<img src="http://api.randomuser.me/portraits/med/women/22.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/men/35.jpg">
 			<img src="http://api.randomuser.me/portraits/med/men/35.jpg">
 		</div>
-		<div class="card">
+		<div class="card" data-url="http://api.randomuser.me/portraits/med/men/50.jpg">
 			<img src="http://api.randomuser.me/portraits/med/men/50.jpg">
 		</div>
 	</div>
@@ -115,15 +115,13 @@
 		}
 	});
 	
-	
-	
 	$target.on("swipeleft", ".card", function(event){
-		//var url = $(this).data("url");
-		//$("#no").append( $("<img>").attr("src", url) );
+		var url = $(this).data("url");
+		$("#no").append( $("<img>").attr("src", url) );
 	});
 	$target.on("swiperight", ".card", function(event){
-		//var url = $(this).data("url");
-		//$("#yes").append( $("<img>").attr("src", url) );
+		var url = $(this).data("url");
+		$("#yes").append( $("<img>").attr("src", url) );
 	});
 
 	</script>
